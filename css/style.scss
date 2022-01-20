@@ -1,0 +1,81 @@
+@use "reset";
+@use "vars";
+
+body {
+  width: 100%;
+}
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 2rem;
+}
+.header {
+  background-color: vars.$primaryColor;
+}
+
+.board {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0 2rem;
+
+  &__cards {
+    border: 1px solid #000;
+    border-radius: vars.$borderRadius;
+    background-color: #fff;
+    width: 33%;
+    min-width: 100px;
+    max-width: 120px;
+    display: flex;
+    justify-content: center;
+    margin: 0.2rem;
+    align-items: center;
+    &__images {
+      border-radius: vars.$borderRadius;
+      width: 80%;
+      object-fit: cover;
+    }
+    &--hidden {
+      background-color: vars.$primaryColor;
+
+      img {
+        opacity: 0;
+      }
+    }
+    &--selected {
+      transform: scale(1.05);
+      transition: 0.3s;
+    }
+    &:hover {
+      transform: scale(1.05);
+      transition: 0.3s;
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .board {
+    &__cards {
+      width: 24%;
+      min-width: 100px;
+      max-width: 150px;
+      cursor: pointer;
+      &__images {
+      }
+    }
+  }
+}
+@media screen and (min-width: 1024px) {
+  .board {
+    &__cards {
+      width: 15%;
+      min-width: 150px;
+      max-width: 200px;
+      &__images {
+      }
+    }
+  }
+}
