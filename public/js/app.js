@@ -25,7 +25,7 @@ const game = {
   theme: {
     name: "fruit",
     id: 1,
-    sprite: "./cards.png",
+    sprite: "cards.png",
   },
   isInit: false,
   pair: [],
@@ -58,7 +58,7 @@ const game = {
       frontCard.classList.add("board__cards--front");
       const backCard = document.createElement("div");
       backCard.classList.add("board__cards--back");
-      img.src = theme.sprite;
+      img.src = `./public/images/${theme.sprite}`;
       img.alt = name;
       frontCard.appendChild(img);
       cardElem.appendChild(backCard);

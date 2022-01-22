@@ -136,7 +136,7 @@ table {
 :root {
   --primaryColor: #2ec4b6;
   --lightColor: #e5f9f8;
-  --secondColor: #3778bd;
+  --secondColor: #229186;
   --darkColor: #000;
   --lightColor: #e5f9f8;
 }
@@ -359,7 +359,7 @@ body {
   transition: 0.3s;
 }
 .modal__footer__btn:hover {
-  filter: brightness(85%);
+  filter: brightness(90%);
 }
 
 .score__table {
@@ -384,7 +384,7 @@ body {
 }
 .score__table td,
 .score__table th {
-  padding: 0.3px;
+  padding: 0.3rem;
   text-align: center;
   width: 100px;
 }
