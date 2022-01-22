@@ -134,7 +134,7 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        border: 1px solid #333;
+        // border: 1px solid #333;
         border-radius: vars.$borderRadius;
         backface-visibility: hidden; //on cache la face qui n'est pas visible
         -webkit-backface-visibility: hidden;
@@ -152,7 +152,7 @@ body {
         }
       }
       &--back {
-        background-color: var(--primaryColor);
+        background: var(--primaryColor);
         &::after {
           background: #a8a8a8;
           background: radial-gradient(

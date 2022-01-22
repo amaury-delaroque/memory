@@ -257,7 +257,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #333;
   border-radius: 5px;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
@@ -275,7 +274,7 @@ body {
   border-radius: 5px;
 }
 .main-game .board__cards--back {
-  background-color: var(--primaryColor);
+  background: var(--primaryColor);
 }
 .main-game .board__cards--back::after {
   background: #a8a8a8;
