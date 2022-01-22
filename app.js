@@ -1,6 +1,6 @@
-const Game = {
+const game = {
   init: () => {
-    Game.initCards();
+    game.firstLoad();
   },
   cardsGame: [
     { name: "red apple", id: 1 },
@@ -27,11 +27,16 @@ const Game = {
     id: 1,
     sprite: "./cards.png",
   },
+  isInit: false,
   pair: [],
   checkingCardPair: false,
   pairFind: [],
+  maxTime: 60000, // 1m en ms pour le temps d'une partie
+  timer: 0,
+  score: 0,
+  isGameWon: false,
   initCards: () => {
-    const cards = [...Game.cardsGame];
+    const cards = [...game.cardsGame];
     const randomizedAndSliceCards = cards
       .sort(() => Math.random() - 0.5)
       .slice(cards.length / 2);
@@ -39,7 +44,8 @@ const Game = {
       ...randomizedAndSliceCards,
       ...randomizedAndSliceCards,
     ].sort(() => Math.random() - 0.5);
-    Game.createCards(randomCardsGame, Game.theme);
+    game.timer = game.maxTime;
+    game.createCards(randomCardsGame, game.theme);
   },
   createCards: (cards, theme) => {
     const board = document.querySelector(".board");
@@ -61,14 +67,14 @@ const Game = {
       cardElem.dataset.id = id;
       cardElem.dataset.index = index;
       img.onload = () => {
-        Game.trimImage(
+        game.trimImage(
           img,
           id * 100 - 100,
           img.width,
-          img.height / Game.cardsGame.length
+          img.height / game.cardsGame.length
         );
       };
-      cardElem.addEventListener("click", Game.onClickCard);
+      cardElem.addEventListener("click", game.onClickCard);
       return board.appendChild(cardElem);
     });
   },
@@ -85,51 +91,106 @@ const Game = {
     img.parentNode.replaceChild(newImg, img);
   },
   onClickCard: (e) => {
-    if (!Game.checkingCardPair) {
+    if (!game.checkingCardPair) {
       const card = e.target.closest(".board__cards");
-      Game.pair.push(card.dataset);
-      !card.classList.contains("board__cards--reveal") &&
+      if (!card.classList.contains("board__cards--reveal")) {
         card.classList.add("board__cards--reveal");
-      if (Game.pair.length === 2) {
+        game.pair.push(card.dataset);
+      }
+      if (game.pair.length === 2) {
         if (
-          Game.pair[0].id === Game.pair[1].id &&
-          Game.pair[0].index !== Game.pair[1].index
+          game.pair[0].id === game.pair[1].id &&
+          game.pair[0].index !== game.pair[1].index
         ) {
-          //set score +1
+          game.score++;
           //remove listenner sur les 2 cartes
           const cards = document.querySelectorAll(".board__cards");
           for (let i = 0; i < cards.length; i++) {
-            if (cards[i].dataset.id === Game.pair[0].id)
-              cards[i].removeEventListener("click", Game.onClickCard);
+            if (cards[i].dataset.id === game.pair[0].id)
+              cards[i].removeEventListener("click", game.onClickCard);
           }
-          Game.pairFind.push(Game.pair[0].id);
-          Game.checkVictory();
-          Game.pair = [];
+          game.pairFind.push(game.pair[0].id);
+          game.checkVictory();
+          game.pair = [];
         } else {
           // on enlève la classe reveal sur les deux cartes après 1,5s;
           //on empêche l'utilisateur de cliquer pendantla vérification des cartes
-          Game.checkingCardPair = true;
+          game.checkingCardPair = true;
+          const pair = [...game.pair];
+          game.pair = [];
           setTimeout(() => {
             const cards = document.querySelectorAll(".board__cards");
             for (let i = 0; i < cards.length; i++) {
               if (
-                cards[i].dataset.index === Game.pair[0].index ||
-                cards[i].dataset.index === Game.pair[1].index
+                cards[i].dataset.index === pair[0].index ||
+                cards[i].dataset.index === pair[1].index
               ) {
                 cards[i].classList.remove("board__cards--reveal");
               }
             }
-            Game.pair = [];
-            Game.checkingCardPair = false;
-          }, 1500);
+            game.checkingCardPair = false;
+          }, 800);
         }
       }
     }
   },
   checkVictory: () => {
-    if (Game.cardsGame.length === Game.pairFind.length * 2)
-      setTimeout(() => alert("GAGNÉ"), 1000);
+    if (game.cardsGame.length === game.pairFind.length * 2) {
+      game.isGameWon = true;
+      setTimeout(() => {
+        game.endGame("win");
+      }, 1000);
+    }
+  },
+  setTimer: () => {
+    //revoir le compteur en comparant les timestampz, de date pour être plus précis
+    const timerElem = document.querySelector(".timer__elapsed");
+    const timerInterval = setInterval(() => {
+      game.timer -= 10;
+      timerElem.style.width = `${100 - (game.timer * 100) / game.maxTime}%`;
+      if (game.isGameWon) clearInterval(timerInterval);
+      if (game.timer <= 0 && game.isInit && !game.isGameWon) {
+        clearInterval(timerInterval);
+        game.endGame("loose");
+        document.documentElement.style.setProperty(
+          "--primaryColor",
+          `#${Math.floor(Math.random() * 16777215).toString(16)}`
+        );
+      }
+    }, 10);
+  },
+  endGame: (result) => {
+    const modalBtn = modals.modalReplay.querySelector("#modal__replay__btn");
+    const modalText = modals.modalReplay.querySelector("#modal__replay__text");
+    modalText.textContent = `you ${result} score: ${game.score}/${
+      game.cardsGame.length / 2
+    }`;
+    modalBtn.addEventListener("click", game.replayGame);
+    game.timer = 0;
+    modals.open(modals.modalReplay);
+  },
+  replayGame: () => {
+    modals.close(modals.modalReplay);
+    game.score = 0;
+    game.pair = [];
+    game.checkingCardPair = false;
+    game.isGameWon = false;
+    game.pairFind = [];
+    game.initCards();
+    game.setTimer();
+  },
+  firstLoad: () => {
+    if (!game.isInit) {
+      modals.open(modals.modalHome);
+      const modalBtn = modals.modalHome.querySelector("#modal__home__btn");
+      modalBtn.addEventListener("click", () => {
+        modals.close(modals.modalHome);
+        game.initCards();
+        game.setTimer();
+        game.isInit = true;
+      });
+    }
   },
 };
 
-window.addEventListener("DOMContentLoaded", Game.init);
+window.addEventListener("DOMContentLoaded", game.init);

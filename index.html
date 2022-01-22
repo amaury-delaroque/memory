@@ -6,22 +6,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/index.css">
-    <title>Memory - Vanilla JS</title>
+    <title>Memory</title>
 </head>
 
 <body>
     <header class="header">
-        <h1>Memory Game</h1>
+        <h1>O'memo</h1>
     </header>
-    <main>
+    <main class="main-game">
         <div class="board">
-
+            <!--Randomized cards appears here-->
+        </div>
+        <div class="timer__total">
+            <div class="timer__elapsed">
+                <div class="timer__elapsed__decor"></div>
+            </div>
         </div>
     </main>
     <footer>
 
     </footer>
+    <div class="modal__container modal__close" id="modal__replay">
+        <article class="modal">
+            <header class="modal__header">
+                <h2>O'memo - Résultat de la partie</h2>
+            </header>
+            <main class="modal__body">
+                <p class="modal__body__text" id="modal__replay__text"></p>
+                <h3 class="modal__body__tittle">Classement :</h3>
+                <section class="modal__body__score">
+
+                </section>
+            </main>
+            <footer class="modal__footer">
+                <button class="modal__footer__btn" id="modal__replay__btn">Rejouer</button>
+            </footer>
+        </article>
+    </div>
+    <div class="modal__container modal__close" id="modal__home">
+        <article class="modal">
+            <header class="modal__header">
+                <h2 class="modal__header__tittle">O'memo</h2>
+            </header>
+            <main class="modal__body">
+                <h3 class="modal__body__tittle">Bienvenue</h3>
+                <p class="modal__body__text">Le but du jeu est simple, retrouve toutes les paires de cartes le plus
+                    rapidement possible et
+                    enregistre ton score.</p>
+                <h3 class="modal__body__tittle">Classement :</h3>
+                <section class="modal__body__score">
+
+                </section>
+            </main>
+            <footer class="modal__footer">
+                <button class="modal__footer__btn" id="modal__home__btn">Jouer</button>
+            </footer>
+        </article>
+    </div>
+    <template id="score-table">
+        <table class="score__table">
+            <thead class="score__table__head">
+                <tr class="score__table__head__row">
+                    <th class="score__table__head__cell">position</th>
+                    <th class="score__table__head__cell">date</th>
+                    <th class="score__table__head__cell">pseudo</th>
+                    <th class="score__table__head__cell">temps</th>
+                </tr>
+            </thead>
+            <tbody class="score__table__body">
+                <!-- Record scores in rows here-->
+            </tbody>
+        </table>
+    </template>
     <script src="./app.js"></script>
+    <script src="./modals.js"></script>
+
 </body>
 
 </html>
