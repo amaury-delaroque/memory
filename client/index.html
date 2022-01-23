@@ -5,13 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./public/css/index.css">
-    <title>Memory</title>
+    <title>O'memory</title>
 </head>
 
 <body>
     <header class="header">
-        <h1>O'memo</h1>
+        <h1>O'memory</h1>
     </header>
     <main class="main-game">
         <div class="board">
@@ -23,17 +26,16 @@
             </div>
         </div>
     </main>
-    <footer>
 
-    </footer>
     <div class="modal__container modal__close" id="modal__replay">
         <article class="modal">
             <header class="modal__header">
-                <h2>O'memo - Résultat de la partie</h2>
+                <h2 class="modal__header__title" id="modal__replay__title"></h2>
             </header>
             <main class="modal__body">
+                <h2 class="modal__body__title"></h2>
                 <p class="modal__body__text" id="modal__replay__text"></p>
-                <h3 class="modal__body__tittle">Classement :</h3>
+                <h3 class="modal__body__title">Classement :</h3>
                 <section class="modal__body__score">
 
                 </section>
@@ -46,14 +48,12 @@
     <div class="modal__container modal__close" id="modal__home">
         <article class="modal">
             <header class="modal__header">
-                <h2 class="modal__header__tittle">O'memo</h2>
+                <h2 class="modal__header__title">Let's Play!</h2>
             </header>
             <main class="modal__body">
-                <h3 class="modal__body__tittle">Bienvenue</h3>
-                <p class="modal__body__text">Le but du jeu est simple, retrouve toutes les paires de cartes le plus
-                    rapidement possible et
-                    enregistre ton score.</p>
-                <h3 class="modal__body__tittle">Classement :</h3>
+                <p class="modal__body__text">Retrouvez toutes les paires de cartes avant la fin du timer et
+                    enregistrez votre score.</p>
+                <h3 class="modal__body__title">Classement :</h3>
                 <section class="modal__body__score">
 
                 </section>
@@ -61,6 +61,26 @@
             <footer class="modal__footer">
                 <button class="modal__footer__btn" id="modal__home__btn">Jouer</button>
             </footer>
+        </article>
+    </div>
+    <div class="modal__container modal__close" id="modal__record">
+        <article class="modal">
+            <header class="modal__header">
+                <h2 class="modal__header__title">Gagné !</h2>
+            </header>
+            <form id="modal__record__form" method="post">
+                <main class="modal__body">
+                    <p>Si vous le souhaitez, ajouter un pseudo pour enregistrer votre score.</p>
+                    <div class="input__container">
+                        <label for="pseudo">Pseudo (optionnel)</label>
+                        <input name="pseudo" id="pseudo" type="text" placeholder="Ecrire votre pseudo" autofocus>
+                    </div>
+                    <p class="error"></p>
+                </main>
+                <footer class="modal__footer">
+                    <button type="submit" class="modal__footer__btn">Enregistrer</button>
+                </footer>
+            </form>
         </article>
     </div>
     <template id="score-table">
@@ -80,6 +100,8 @@
     </template>
     <script src="./public/js/app.js"></script>
     <script src="./public/js/modals.js"></script>
+    <script src="./public/js/api.js"></script>
+
 
 </body>
 

@@ -1,6 +1,14 @@
 const game = {
   init: () => {
-    game.firstLoad();
+    modals.open(modals.modalHome);
+    modals.addScoresFromApiToTable(modals.modalHome);
+    const modalBtn = modals.modalHome.querySelector("#modal__home__btn");
+    modalBtn.addEventListener("click", () => {
+      modals.close(modals.modalHome);
+      game.initCards();
+      game.setTimer();
+      game.isInit = true;
+    });
   },
   cardsGame: [
     { name: "red apple", id: 1 },
@@ -33,13 +41,14 @@ const game = {
   pairFind: [],
   maxTime: 60000, // 1m en ms pour le temps d'une partie
   timer: 0,
+  pseudo: "",
   score: 0,
   isGameWon: false,
   initCards: () => {
     const cards = [...game.cardsGame];
     const randomizedAndSliceCards = cards
       .sort(() => Math.random() - 0.5)
-      .slice(cards.length / 2);
+      .slice(0, 7);
     const randomCardsGame = [
       ...randomizedAndSliceCards,
       ...randomizedAndSliceCards,
@@ -135,10 +144,10 @@ const game = {
     }
   },
   checkVictory: () => {
-    if (game.cardsGame.length === game.pairFind.length * 2) {
+    if (game.pairFind.length === 7) {
       game.isGameWon = true;
       setTimeout(() => {
-        game.endGame("win");
+        game.recordScore();
       }, 1000);
     }
   },
@@ -151,23 +160,43 @@ const game = {
       if (game.isGameWon) clearInterval(timerInterval);
       if (game.timer <= 0 && game.isInit && !game.isGameWon) {
         clearInterval(timerInterval);
-        game.endGame("loose");
-        document.documentElement.style.setProperty(
-          "--primaryColor",
-          `#${Math.floor(Math.random() * 16777215).toString(16)}`
-        );
+        game.endGame("Perdu!");
       }
     }, 10);
   },
-  endGame: (result) => {
+  recordScore: () => {
+    game.score = game.maxTime - game.timer;
+    game.timer = 0;
+    modals.open(modals.modalRecord);
+    const modalForm = modals.modalRecord.querySelector("#modal__record__form");
+    const inputPseudo = modalForm.querySelector("#pseudo");
+    inputPseudo.value = game.pseudo;
+    inputPseudo.focus();
+    inputPseudo.addEventListener("change", (e) => {
+      game.pseudo = e.target.value;
+    });
+    modalForm.addEventListener("submit", game.handleCreateScore);
+  },
+  endGame: (message) => {
+    document.documentElement.style.setProperty(
+      "--primaryColor",
+      `#${Math.floor(Math.random() * 16777215).toString(16)}`
+    );
     const modalBtn = modals.modalReplay.querySelector("#modal__replay__btn");
     const modalText = modals.modalReplay.querySelector("#modal__replay__text");
-    modalText.textContent = `you ${result} score: ${game.score}/${
-      game.cardsGame.length / 2
-    }`;
+    const modalTitle = modals.modalReplay.querySelector(
+      ".modal__header__title"
+    );
+    modalText.textContent = "Bravo, vous être entrer dans notre classement.";
+    if (message === "Perdu!") {
+      modalText.textContent =
+        "Retentez votre chance pour entrer dans le classement.";
+    }
+    // Faire switch case pour afficher
+    modalTitle.textContent = message;
     modalBtn.addEventListener("click", game.replayGame);
-    game.timer = 0;
     modals.open(modals.modalReplay);
+    modals.addScoresFromApiToTable(modals.modalReplay);
   },
   replayGame: () => {
     modals.close(modals.modalReplay);
@@ -179,16 +208,17 @@ const game = {
     game.initCards();
     game.setTimer();
   },
-  firstLoad: () => {
-    if (!game.isInit) {
-      modals.open(modals.modalHome);
-      const modalBtn = modals.modalHome.querySelector("#modal__home__btn");
-      modalBtn.addEventListener("click", () => {
-        modals.close(modals.modalHome);
-        game.initCards();
-        game.setTimer();
-        game.isInit = true;
-      });
+  handleCreateScore: async (event) => {
+    event.preventDefault();
+    const record = await api.storeScore(game.score, game.pseudo);
+    if (record.success) {
+      const errorElem = modals.modalRecord.querySelector(".error");
+      errorElem.textContent = "";
+      modals.close(modals.modalRecord);
+      game.endGame(record.success);
+    } else {
+      const errorElem = modals.modalRecord.querySelector(".error");
+      errorElem.textContent = record.error;
     }
   },
 };

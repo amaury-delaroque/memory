@@ -137,8 +137,7 @@ table {
   --primaryColor: #2ec4b6;
   --lightColor: #e5f9f8;
   --secondColor: #229186;
-  --darkColor: #000;
-  --lightColor: #e5f9f8;
+  --darkColor: #1f1f1f;
 }
 
 * {
@@ -149,6 +148,7 @@ table {
 body {
   width: 100%;
   background-color: var(--lightColor);
+  font-family: "Roboto", sans-serif;
 }
 
 .header {
@@ -158,7 +158,7 @@ body {
 .header h1 {
   color: var(--lightColor);
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   font-weight: bold;
 }
 
@@ -176,7 +176,7 @@ body {
   border: 1px solid #fff;
   border-radius: 5px;
   height: 1rem;
-  background-color: var(--primaryColor);
+  background-color: var(--secondColor);
 }
 .main-game .timer__total::after {
   content: "";
@@ -243,8 +243,8 @@ body {
   cursor: pointer;
   position: relative;
   margin: 0.3rem;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
   perspective: 2000px;
   perspective-origin: bottom right;
   transform-style: preserve-3d;
@@ -308,6 +308,21 @@ body {
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
+.modal h2,
+.modal h3 {
+  font-weight: bold;
+}
+.modal h2 {
+  font-size: 1.8rem;
+  padding: 1rem;
+}
+.modal h3 {
+  padding-top: 1rem;
+  font-size: 1.3rem;
+}
+.modal p {
+  padding: 0.5rem;
+}
 .modal__container {
   position: absolute;
   width: 100%;
@@ -324,16 +339,23 @@ body {
   display: none;
 }
 .modal__header {
-  padding: 1rem;
   border-radius: 5px 5px 0 0;
   text-align: center;
   color: var(--lightColor);
   background-color: var(--primaryColor);
 }
 .modal__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  padding: 2rem 0.3rem;
+  padding: 0.3rem;
+  padding: 1rem;
   background-color: var(--lightColor);
+}
+.modal__body__title {
+  color: var(--primaryColor);
 }
 .modal__body__text {
   text-align: center;
@@ -386,6 +408,50 @@ body {
   padding: 0.3rem;
   text-align: center;
   width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.my-score {
+  background-color: var(--primaryColor);
+  color: var(--lightColor);
+}
+
+.input__container {
+  margin: 0 auto;
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  box-shadow: 3px 4px 5px 0px #7b7a7a70;
+  border-radius: 5px;
+  background-color: #fff;
+}
+.input__container input {
+  width: 100%;
+  height: 100%;
+  padding: 0.2rem 0.3rem;
+  border-radius: 0 5px 5px 0;
+  border: none;
+  box-shadow: none;
+  margin: 0;
+}
+.input__container input::placeholder {
+  text-align: center;
+}
+.input__container input:focus {
+  border: none;
+  outline: none;
+  border-bottom: 1px solid var(--secondColor);
+}
+.input__container label {
+  background-color: var(--secondColor);
+  border-radius: 5px 0 0 5px;
+  color: var(--lightColor);
+  font-size: 0.7rem;
+  text-align: center;
+  padding: 0.2rem 0.3rem;
 }
 
 /* Add media-queries*/
