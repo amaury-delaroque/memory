@@ -1,5 +1,5 @@
 const api = {
-  baseUrl: "https://amaury-memory-back.herokuapp.com/api/v1/",
+  baseUrl: "https://amaury-memory-back.herokuapp.com/api/v1",
   storeScore: async (score, pseudo) => {
     try {
       const data = {
