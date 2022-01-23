@@ -46,10 +46,9 @@ const modals = {
 
     modalScore.textContent = "";
     modalScore.appendChild(tableClone);
-    modalScore.querySelector(".my-score").scrollIntoView({
-      behavior: "auto",
+    const myScore = modalScore.querySelector(".my-score");
+    myScore?.scrollIntoView({
       block: "center",
-      inline: "center",
     });
   },
 };
