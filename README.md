@@ -39,7 +39,7 @@ Si vous perdez, retentez votre chance :smiling_imp: :smiling_imp:
 <br>
 
 ## Installation
- ###Création de la base de donnée PostgreSQL via le terminal de commande. 
+ ### Création de la base de donnée PostgreSQL via le terminal de commande. 
 ```bash
 $ psql postgres
 postgres=> CREATE ROLE <role> WITH LOGIN PASSWORD '<password>';
@@ -50,22 +50,22 @@ $ psql <database>
 <database>=>\i ./server/data/import.sql;
 <database>=>\i ./server/data/seeding.sql;
 ```
-###Création d'un fichier .env conformément au fichier .env.example pour ajouter les variables d'environnement.   
+### Création d'un fichier .env conformément au fichier .env.example pour ajouter les variables d'environnement.   
 ```bash
 $ cp .env.example .env
 $ nano .env
 ```
-###Lancer le serveur
+### Lancer le serveur
 ```bash
 $ npm i -y
 $ npm start
 ```
-###Lancer le client
+### Lancer le client
 ```bash
 $ cd client
 $ open index.html
 ```
-###Editer le style depuis le préprocesseur SASS
+### Editer le style depuis le préprocesseur SASS
 ```bash
 $ sass --watch ./client/public/css/style.scss ./client/public/css/index.css
 ```
