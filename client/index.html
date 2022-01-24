@@ -9,12 +9,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./public/css/index.css">
-    <title>O'memory</title>
+    <link rel="icon" type="image/x-icon" href="./public/images/favicon.ico">
+    <title>A'memory</title>
 </head>
 
 <body>
     <header class="header">
-        <h1>O'memory</h1>
+        <div class="logo"></div>
+        <h1>A'memory</h1>
+        <button class="header__themes__button">
+            <div class="header__themes__button__icon"></div>
+        </button>
+        <ul class="header__themes__container"></ul>
     </header>
     <main class="main-game">
         <div class="board">
@@ -51,8 +57,8 @@
                 <h2 class="modal__header__title">Let's Play!</h2>
             </header>
             <main class="modal__body">
-                <p class="modal__body__text">Retrouvez toutes les paires de cartes avant la fin du timer et
-                    enregistrez votre score.</p>
+                <p class="modal__body__text">Retrouve toutes les paires de cartes avant la fin du timer et
+                    enregistre ton score.</p>
                 <h3 class="modal__body__title">Classement :</h3>
                 <section class="modal__body__score">
 
@@ -70,9 +76,9 @@
             </header>
             <form id="modal__record__form" method="post">
                 <main class="modal__body">
-                    <p>Si vous le souhaitez, ajouter un pseudo pour enregistrer votre score.</p>
+                    <p>Tu peux ajouter un pseudo (optionnel) pour enregistrer ton score.</p>
                     <div class="input__container">
-                        <label for="pseudo">Pseudo (optionnel)</label>
+                        <label for="pseudo">Pseudo</label>
                         <input name="pseudo" id="pseudo" type="text" placeholder="Ecrire votre pseudo" autofocus>
                     </div>
                     <p class="error"></p>

@@ -17,12 +17,80 @@ body {
 }
 .header {
   background-color: var(--primaryColor);
-  padding: 1rem;
+  width: 100%;
+  padding: 0.4rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 2;
   h1 {
     color: var(--lightColor);
     text-align: center;
     font-size: 1.8rem;
     font-weight: bold;
+  }
+  .logo {
+    width: 15%;
+    max-width: 50px;
+    height: 50px;
+    background-color: var(--lightColor);
+    -webkit-mask: url(../images/logo.svg) no-repeat center;
+    mask: url(../images/logo.svg) no-repeat center;
+    box-shadow: vars.$shadowBox;
+  }
+  &__themes {
+    &__container {
+      background-color: var(--lightColor);
+
+      border-radius: 0 0 vars.$borderRadius vars.$borderRadius;
+      width: 0;
+      max-height: 300px;
+      overflow-y: scroll;
+      z-index: 1;
+      position: absolute;
+      overflow: visible;
+      transform: translateY(100%);
+      display: block;
+      transition: 0.3s;
+      right: 0;
+      bottom: 0;
+      box-shadow: vars.$shadowBox;
+      &--open {
+        border: 1px solid var(--primaryColor);
+        border-top: none;
+        width: 100%;
+      }
+    }
+    &__button {
+      width: 50px;
+      height: 50px;
+      background-color: var(--primaryColor);
+      border-bottom: 3px solid var(--lightColor);
+      border-left: 2px solid var(--lightColor);
+      border-right: 1px solid var(--lightColor);
+      border-top: none;
+      border-radius: 50%;
+      box-shadow: vars.$shadowBox;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: filter 0.3s;
+      cursor: pointer;
+      &:hover {
+        filter: brightness(90%);
+      }
+      &:active {
+        filter: brightness(75%);
+      }
+      &__icon {
+        width: 40px;
+        height: 40px;
+        background-color: var(--lightColor);
+        -webkit-mask: url(../images/theme.svg) no-repeat center;
+        mask: url(../images/theme.svg) no-repeat center;
+      }
+    }
   }
 }
 .main-game {
@@ -329,7 +397,8 @@ body {
     input {
       width: 100%;
       height: 100%;
-      padding: 0.2rem 0.3rem;
+      display: block;
+      padding: 0.4rem 0.4rem;
       border-radius: 0 vars.$borderRadius vars.$borderRadius 0;
       border: none;
       box-shadow: none;
@@ -340,21 +409,33 @@ body {
       &:focus {
         border: none;
         outline: none;
-        border-bottom: 1px solid var(--secondColor);
+        border-bottom: 4px solid var(--secondColor);
       }
     }
     label {
       background-color: var(--secondColor);
       border-radius: vars.$borderRadius 0 0 vars.$borderRadius;
       color: var(--lightColor);
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       text-align: center;
-      padding: 0.2rem 0.3rem;
+      padding: 0.4rem 0.4rem;
+      span {
+        font-size: 0.5rem;
+      }
     }
   }
 }
 /* Add media-queries*/
 @media screen and (min-width: 700px) {
+  .header {
+    &__themes {
+      &__container {
+        &--open {
+          width: 50%;
+        }
+      }
+    }
+  }
   .main-game {
     .board {
       &__cards {
@@ -368,6 +449,15 @@ body {
   }
 }
 @media screen and (min-width: 1024px) {
+  .header {
+    &__themes {
+      &__container {
+        &--open {
+          width: 25%;
+        }
+      }
+    }
+  }
   .main-game {
     .board {
       width: 90%;

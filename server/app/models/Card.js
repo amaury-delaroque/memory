@@ -25,7 +25,6 @@ Card.init(
   },
   {
     defaultScope: {
-      include: ["theme"],
       order: [["id", "ASC"]],
     },
     sequelize,

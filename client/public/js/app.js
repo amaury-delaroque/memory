@@ -3,6 +3,7 @@ const game = {
     modals.open(modals.modalHome);
     modals.addScoresFromApiToTable(modals.modalHome);
     const modalBtn = modals.modalHome.querySelector("#modal__home__btn");
+    game.createThemesList();
     modalBtn.addEventListener("click", () => {
       modals.close(modals.modalHome);
       game.initCards();
@@ -10,6 +11,7 @@ const game = {
       game.isInit = true;
     });
   },
+  themes: [],
   cardsGame: [
     { name: "red apple", id: 1 },
     { name: "banana", id: 2 },
@@ -33,7 +35,7 @@ const game = {
   theme: {
     name: "fruit",
     id: 1,
-    sprite: "cards.png",
+    sprite: "dragonball.png",
   },
   isInit: false,
   pair: [],
@@ -67,7 +69,7 @@ const game = {
       frontCard.classList.add("board__cards--front");
       const backCard = document.createElement("div");
       backCard.classList.add("board__cards--back");
-      img.src = `./public/images/${theme.sprite}`;
+      img.src = `./public/images/${game.theme.sprite}`;
       img.alt = name;
       frontCard.appendChild(img);
       cardElem.appendChild(backCard);
@@ -78,7 +80,8 @@ const game = {
       img.onload = () => {
         game.trimImage(
           img,
-          id * 100 - 100,
+          id * (img.height / game.cardsGame.length) -
+            img.height / game.cardsGame.length,
           img.width,
           img.height / game.cardsGame.length
         );
@@ -187,10 +190,10 @@ const game = {
     const modalTitle = modals.modalReplay.querySelector(
       ".modal__header__title"
     );
-    modalText.textContent = "Bravo, vous être entrer dans notre classement.";
+    modalText.textContent = "Bravo, tu viens d'entrer dans notre classement.";
     if (message === "Perdu!") {
       modalText.textContent =
-        "Retentez votre chance pour entrer dans le classement.";
+        "Retente ta chance pour entrer dans le classement.";
     }
     // Faire switch case pour afficher
     modalTitle.textContent = message;
@@ -220,6 +223,36 @@ const game = {
       const errorElem = modals.modalRecord.querySelector(".error");
       errorElem.textContent = record.error;
     }
+  },
+  createThemesList: async () => {
+    const themes = await api.getAllThemes();
+    game.themes = themes;
+    const themeButton = document.querySelector(".header__themes__button");
+    const themeContainer = document.querySelector(".header__themes__container");
+    themeButton.addEventListener("click", () =>
+      themeContainer.classList.toggle("header__themes__container--open")
+    );
+    game.themes?.map((theme) => {
+      const themeElem = document.createElement("li");
+      const img = document.createElement("img");
+      const title = document.createElement("h3");
+      img.src = `./public/images/${game.theme.sprite}`;
+      img.alt = theme.name;
+      title.textContent = theme.name;
+      themeElem.appendChild(img);
+      themeElem.appendChild(title);
+      themeElem.dataset.id = theme.id;
+      img.onload = () => {
+        game.trimImage(
+          img,
+          1 * (img.height / game.cardsGame.length) -
+            img.height / game.cardsGame.length,
+          img.width,
+          img.height / game.cardsGame.length
+        );
+      };
+      themeContainer.appendChild(themeElem);
+    });
   },
 };
 

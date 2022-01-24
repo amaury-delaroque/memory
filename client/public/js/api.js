@@ -33,4 +33,16 @@ const api = {
       return error;
     }
   },
+  getAllThemes: async () => {
+    try {
+      const response = await fetch(`${api.baseUrl}/themes`);
+      if (!response.ok) {
+        throw new Error(response.status);
+      }
+      const themes = await response.json();
+      return themes;
+    } catch (error) {
+      return error;
+    }
+  },
 };
