@@ -7,7 +7,7 @@ const router = require("./app/router");
 // A Modifier pour la sécurité a voir pour la suite
 app.use(cors(process.env.CLIENT_URL || process.env.CLIENT_LOCAL));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 
 app.use(router);
