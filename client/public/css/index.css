@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -133,6 +134,11 @@ table {
   border-spacing: 0;
 }
 
+/* On importe nos fichiers CSS ou SCSS */
+/*
+SASS va regarder ce fichier et compiler tous les changements dans le fichier index.css
+On initialise nos vaiables CSS (!! =/= variables SCSS)
+Elles nous serviront à modifier la palette de couleur en JS en fonction du theme séléctionné.*/
 :root {
   --primaryColor: #30cfbf;
   --lightColor: #d6f5f2;
@@ -172,11 +178,13 @@ body {
   max-width: 50px;
   height: 50px;
   background-color: var(--lightColor);
+  /* la propriété mask va nous permettre de reproduire notre svg sur une div pour simuler le changement de couleur du svg */
   -webkit-mask: url(../images/logo.svg) no-repeat center;
   mask: url(../images/logo.svg) no-repeat center;
   box-shadow: 3px 4px 5px 0px #7b7a7a70;
 }
 .header__themes__container {
+  /* On positionne le container du menu juste sous le header tout à droite avec une width de 0 et opacité 0 pour le masquer */
   background-color: var(--lightColor);
   border-radius: 0 0 5px 5px;
   width: 0px;
@@ -193,6 +201,7 @@ body {
   box-shadow: 3px 4px 5px 0px #7b7a7a70;
 }
 .header__themes__container--open {
+  /* On rend visible le container de theme en lui donnant une width et on enleve la trasparence */
   border: 1px solid var(--primaryColor);
   border-top: none;
   width: 100%;
@@ -217,7 +226,7 @@ body {
   width: 100%;
   padding: 0.5rem;
   font-weight: bold;
-  background-color: var(--primaryColor);
+  background-color: var(--secondColor);
   color: var(--lightColor);
   cursor: initial;
 }
@@ -251,10 +260,12 @@ body {
   width: 40px;
   height: 40px;
   background-color: var(--lightColor);
+  /* on ajoute un masque sur la div pour simuler le changement de couleur */
   -webkit-mask: url(../images/theme.svg) no-repeat center;
   mask: url(../images/theme.svg) no-repeat center;
 }
 
+/* Container général du jeu, positionner sous le header */
 .main-game {
   width: 100%;
   flex-direction: column;
@@ -262,6 +273,8 @@ body {
   justify-content: space-around;
   align-items: center;
   min-height: 85vh;
+  /* On utilise 2 divs pour simuler le timer total. La partie elapsed = temps écoulé */
+  /* Toutes nos cartes seront contenue dans le board */
 }
 .main-game .timer__total {
   position: relative;
@@ -279,6 +292,7 @@ body {
   background-color: var(--primaryColor);
 }
 .main-game .timer__elapsed::after {
+  /* Effet de gradient pour simuler une forme de tube sur le timer elapsed */
   position: absolute;
   left: 0;
   top: 0;
@@ -290,6 +304,7 @@ body {
   background: linear-gradient(0deg, #4a4a4a12 0%, #ffffff4e 51%, #00000013 100%);
 }
 .main-game .timer__elapsed__decor {
+  /* Div décorative pour simuler la fin du tube */
   position: absolute;
   right: 0;
   top: 0;
@@ -321,15 +336,19 @@ body {
   padding-top: 1rem;
 }
 .main-game .board__cards {
+  /* cards contiendra la partie front et back de la carte */
   cursor: pointer;
   position: relative;
   margin: 0.3rem;
   width: 90px;
   height: 90px;
+  /* On simule un objet de 3D sur notre carte */
   perspective: 2000px;
   perspective-origin: bottom right;
   transform-style: preserve-3d;
+  /* on anime la rotation de la carte */
   transition: transform 0.8s cubic-bezier(0.86, 0, 0.07, 1);
+  /* front et back on la plupart des propriétés communes */
 }
 .main-game .board__cards--front, .main-game .board__cards--back {
   position: absolute;
@@ -340,12 +359,14 @@ body {
   align-items: center;
   border-radius: 5px;
   backface-visibility: hidden;
+  /* on cache la face qui n'est pas visible */
   -webkit-backface-visibility: hidden;
   box-shadow: 3px 4px 5px 0px #7b7a7a70;
   -webkit-box-shadow: 3px 4px 5px 0px #7b7a7a70;
   -moz-box-shadow: 3px 4px 5px 0px #7b7a7a70;
 }
 .main-game .board__cards--front::after, .main-game .board__cards--back::after {
+  /* on utilise la pseudo-classe sur les 2 faces de cartes pour les propriétés communes */
   content: "";
   position: absolute;
   top: 0;
@@ -358,18 +379,22 @@ body {
   background: var(--primaryColor);
 }
 .main-game .board__cards--back::after {
+  /* Effet gradient transparant pour afficher les auréoles sur la face arrière des cartes */
   background: #a8a8a8;
   background: radial-gradient(circle, #a8a8a812 0%, #ffffff44 51%, #c1c1c113 100%);
 }
 .main-game .board__cards--front {
   background-color: #fff;
+  /* on retourne la carte pour voir la face arrière */
   transform: rotateY(180deg);
 }
 .main-game .board__cards--front::after {
+  /* Effet de gradient transparent pour simuler la luminosité sur les cartes */
   background: #000000;
   background: linear-gradient(315deg, #00000019 0%, #94939300 21%, #fffefe04 37%, #ffffff54 49%, #ffffff00 60%, #7a7a7a00 80%, #0000001a 100%);
 }
 .main-game .board__cards--reveal {
+  /* on retourne la carte pour voir l'image */
   transform: rotateY(180deg);
   cursor: initial;
 }
@@ -386,6 +411,7 @@ body {
   border-radius: 5px;
   background-color: #ccc;
   box-shadow: 0 4px 8px 0 #00000033, 0 6px 20px 0 #00000030;
+  /* on utilise l'animation qui simule la chute de la modale du haut de la fenetre vers le centre */
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
@@ -405,6 +431,7 @@ body {
   padding: 0.5rem;
 }
 .modal__container {
+  /* On simule une page complete en surimpression pour contenir notre modale */
   position: absolute;
   width: 100%;
   height: 100%;
@@ -417,6 +444,7 @@ body {
   align-items: center;
 }
 .modal__close {
+  /* Quand on ajoute la close, la modale disparait */
   display: none;
 }
 .modal__header {
@@ -464,6 +492,9 @@ body {
   filter: brightness(90%);
 }
 
+.score {
+  /* Style du tableau de scores affichés dans les modales */
+}
 .score__table {
   table-layout: fixed;
   border-collapse: collapse;
@@ -495,6 +526,7 @@ body {
 }
 
 .my-score {
+  /* on ajoute cette classe pour différencier le score que l'on vien d'enregistrer en BDD */
   background-color: var(--primaryColor);
   color: var(--lightColor);
 }
@@ -525,6 +557,7 @@ body {
   border: none;
   outline: none;
   border-bottom: 2px solid var(--secondColor);
+  box-shadow: 3px 4px 5px 0px #7b7a7a70;
 }
 .input__container label {
   display: block;
@@ -539,7 +572,7 @@ body {
   border-bottom: 4px solid var(--secondColor);
 }
 
-/* Add media-queries*/
+/* Add media-queries mi-width 700px => Tablet*/
 @media screen and (min-width: 700px) {
   .header__themes__container--open {
     width: 50%;
@@ -554,6 +587,7 @@ body {
     width: 68%;
   }
 }
+/* Add media-queries mi-width 1024px => Desktop*/
 @media screen and (min-width: 1024px) {
   .header__themes__container--open {
     width: 25%;
@@ -578,7 +612,7 @@ body {
     width: 150px;
   }
 }
-/* Add Animation */
+/*  Animation de la modale */
 @keyframes animatetop {
   from {
     top: -300px;
