@@ -1,4 +1,4 @@
 /node_modules
 .env
-3000.js
-.vscode
+/.vscode
+DS_store
