@@ -1,7 +1,8 @@
 BEGIN;
 
 INSERT INTO theme ("name", "sprite", "primary_color", "second_color", "light_color", "dark_color") VALUES
-('fruit', 'cards.png', '#2ec4b6', '#229186', '#e5f9f8', '#1f1f1f');
+('fruit', 'cards.png', '#2ec4b6', '#229186', '#e5f9f8', '#1f1f1f'),
+('dragon ball', 'dragonball.png', '#4ec4b6', '#429186', '#e4f9f8', '#4f1f1f');
 
 INSERT INTO card ("name", "id", "theme_id") VALUES
     ('red apple',1, 1),
