@@ -10,12 +10,10 @@ const sequelize = new Sequelize(process.env.PG_URL, {
     timestamps: false,
   },
   dialectOptions: {
-    /*
     ssl: {
       require: true,
       rejectUnauthorized: false,
     },
-    */
   },
 });
 
