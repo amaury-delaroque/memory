@@ -5,7 +5,7 @@ const { Sequelize } = require("sequelize");
 // 2. Créer une instance de sequelize
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: "postgres",
-  logging: true,
+  logging: false,
   define: {
     timestamps: false,
   },
