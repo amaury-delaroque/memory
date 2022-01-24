@@ -1,9 +1,10 @@
 const Sequelize = require("sequelize");
-
 const sequelize = require("../database");
 
+// On crée un modèle de notre table de BDD card en héritant de toutes les propriétés et méthodes de la class Sequelize
 class Theme extends Sequelize.Model {}
 
+// On initialise les columnes, champs, types et contraintes de notre Modèle
 Theme.init(
   {
     name: {
@@ -32,11 +33,13 @@ Theme.init(
   },
   {
     defaultScope: {
+      //Par défaut, on inclus toutes les cardes associées aux themes
       include: ["cards"],
     },
+    // on connecte notre modèle à la base de données via l'instance sequelize
     sequelize,
     tableName: "theme",
   }
 );
-
+//on exporte le Modèle pour l'utiliser dans les controllers
 module.exports = Theme;

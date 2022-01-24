@@ -3,6 +3,8 @@ const Theme = require("./Theme");
 const Score = require("./Score");
 
 // Nos associations
+
+// Une card appartient à un et un seul thème
 Card.belongsTo(Theme, {
   as: "theme",
   foreignKey: {
@@ -11,6 +13,7 @@ Card.belongsTo(Theme, {
   },
 });
 
+// Un theme possède plusieurs cartes
 Theme.hasMany(Card, {
   as: "cards",
   foreignKey: "theme_id",
