@@ -3,7 +3,7 @@ const router = express.Router();
 const scoreController = require("./controllers/scoreController");
 const themeController = require("./controllers/themeController");
 
-router.get("/", (req, res) => res.send("../index.html"));
+router.get("/", (req, res) => res.sendFile("../index.html"));
 router
   .route("/api/v1/scores")
   .get(scoreController.getAllScores)
