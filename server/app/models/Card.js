@@ -12,7 +12,6 @@ Card.init(
     },
     id: {
       type: Sequelize.INTEGER,
-      primaryKey: true,
     },
     theme_id: {
       type: Sequelize.INTEGER,

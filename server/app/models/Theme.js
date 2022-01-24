@@ -13,19 +13,19 @@ Theme.init(
     sprite: {
       type: Sequelize.TEXT,
     },
-    primaryColor: {
+    primary_color: {
       type: Sequelize.TEXT,
       defaultValue: "",
     },
-    secondColor: {
+    second_color: {
       type: Sequelize.TEXT,
       defaultValue: "",
     },
-    lightColor: {
+    light_color: {
       type: Sequelize.TEXT,
       defaultValue: "",
     },
-    darkColor: {
+    dark_color: {
       type: Sequelize.TEXT,
       defaultValue: "",
     },

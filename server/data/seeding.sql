@@ -1,7 +1,10 @@
 BEGIN;
 
 INSERT INTO theme ("name", "sprite", "primary_color", "second_color", "light_color", "dark_color") VALUES
-('fruit', 'cards.png', '#2ec4b6', '#229186', '#e5f9f8', '#1f1f1f');
+('Fruit', 'cards.png', '#30cfbf', '#1d7c72', '#d6f5f2', '#0a2926'),
+('Dragon Ball', 'dragonball.png', '#ef8915', '#8f510a', '#fce7cf', '#301b03'),
+('Star Wars', 'starwars.png', '#6358a7', '#3b3564', '#e0deed', '#141221');
+
 
 INSERT INTO card ("name", "id", "theme_id") VALUES
     ('red apple',1, 1),
@@ -21,7 +24,43 @@ INSERT INTO card ("name", "id", "theme_id") VALUES
     ('red cherry', 15, 1),
     ('raspberry', 16, 1),
     ('mango', 17, 1),
-    ('yellow cherry', 18, 1);
+    ('yellow cherry', 18, 1),
+    ('Goku',1, 2),
+    ('Beerus',2, 2),
+    ('Gogeta', 3, 2),
+    ('Freezer', 4, 2),
+    ('teen Gohan', 5, 2),
+    ('Pan', 6, 2),
+    ('kid Buu', 7, 2),
+    ('Broly Z sayajin', 8, 2),
+    ('Black Goku rosé', 9, 2),
+    ('kid Goku', 10, 2),
+    ('kid Trunks & Goten', 11, 2),
+    ('Vegeta SSJ1', 12, 2),
+    ('Piccolo', 13, 2),
+    ('Trunks SSJ1', 14, 2),
+    ('Cell', 15, 2),
+    ('Krilin', 16, 2),
+    ('Gotenks SSJ3', 17, 2),
+    ('Vegeta', 18, 2),
+    ('Luke Skywalker',1, 3),
+    ('Leïa Skywalker',2, 3),
+    ('Yoda', 3, 3),
+    ('Boba Fett', 4, 3),
+    ('Dark Vador', 5, 3),
+    ('C3-PO', 6, 3),
+    ('Palpatine', 7, 3),
+    ('R2D2', 8, 3),
+    ('Mace Windu', 9, 3),
+    ('Chewbacca',10, 3),
+    ('Han Solo', 11, 3),
+    ('Ewok', 12, 3),
+    ('Obi-Won Kenobi', 13, 3),
+    ('Monster', 14, 3),
+    ('Qui-Gon Jiin', 15, 3),
+    ('Jaba', 16, 3),
+    ('Anakin Skywalker', 17, 3),
+    ('Lando', 18, 3);
 
 
 COMMIT;

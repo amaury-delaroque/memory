@@ -134,10 +134,10 @@ table {
 }
 
 :root {
-  --primaryColor: #2ec4b6;
-  --lightColor: #e5f9f8;
-  --secondColor: #229186;
-  --darkColor: #1f1f1f;
+  --primaryColor: #30cfbf;
+  --lightColor: #d6f5f2;
+  --secondColor: #1d7c72;
+  --darkColor: #0a2926;
 }
 
 * {
@@ -179,42 +179,47 @@ body {
 .header__themes__container {
   background-color: var(--lightColor);
   border-radius: 0 0 5px 5px;
-  width: 0;
+  width: 0px;
   max-height: 300px;
   overflow-y: scroll;
   z-index: 1;
   position: absolute;
-  overflow: visible;
   transform: translateY(100%);
   display: block;
   transition: 0.3s;
   right: 0;
   bottom: 0;
+  opacity: 0;
   box-shadow: 3px 4px 5px 0px #7b7a7a70;
 }
 .header__themes__container--open {
   border: 1px solid var(--primaryColor);
   border-top: none;
   width: 100%;
+  opacity: 1;
 }
-.header__themes__container li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.header__themes__container__li {
   width: 100%;
   background-color: var(--lightColor);
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: bold;
   color: var(--primaryColor);
   border-bottom: 1px solid var(--primaryColor);
   transition: 0.3s;
   cursor: pointer;
 }
-.header__themes__container li:hover {
+.header__themes__container__li:hover {
   background-color: var(--primaryColor);
   color: var(--lightColor);
 }
-.header__themes__container li img {
-  width: 15%;
-  border-radius: 50%;
+.header__themes__container__title {
+  width: 100%;
+  padding: 0.5rem;
+  font-weight: bold;
+  background-color: var(--primaryColor);
+  color: var(--lightColor);
+  cursor: initial;
 }
 .header__themes__button {
   width: 50px;
@@ -229,7 +234,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: filter 0.3s;
+  transition: 0.3s;
   cursor: pointer;
 }
 .header__themes__button:hover {
@@ -237,6 +242,10 @@ body {
 }
 .header__themes__button:active {
   filter: brightness(75%);
+}
+.header__themes__button:disabled {
+  opacity: 0;
+  cursor: initial;
 }
 .header__themes__button__icon {
   width: 40px;
@@ -257,28 +266,16 @@ body {
 .main-game .timer__total {
   position: relative;
   width: 75%;
-  border: 1px solid #fff;
+  border: 1px solid var(--lightColor);
   border-radius: 5px;
   height: 1rem;
-  background-color: var(--secondColor);
-}
-.main-game .timer__total::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  border-radius: 5px;
-  background: white;
-  background: linear-gradient(0deg, rgba(255, 255, 255, 0.3995973389) 0%, rgba(148, 147, 147, 0) 21%, rgba(0, 0, 0, 0.3295693277) 49%, rgba(122, 122, 122, 0) 78%, rgba(255, 255, 255, 0.3967962185) 96%);
+  background-color: var(--darkColor);
 }
 .main-game .timer__elapsed {
   position: relative;
   height: 100%;
   width: 1%;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
   background-color: var(--primaryColor);
 }
 .main-game .timer__elapsed::after {
@@ -505,7 +502,6 @@ body {
 .input__container {
   margin: 0 auto;
   width: 80%;
-  height: 100%;
   display: flex;
   align-items: center;
   box-shadow: 3px 4px 5px 0px #7b7a7a70;
@@ -516,7 +512,7 @@ body {
   width: 100%;
   height: 100%;
   display: block;
-  padding: 0.4rem 0.4rem;
+  padding: 0.5rem;
   border-radius: 0 5px 5px 0;
   border: none;
   box-shadow: none;
@@ -528,18 +524,19 @@ body {
 .input__container input:focus {
   border: none;
   outline: none;
-  border-bottom: 4px solid var(--secondColor);
+  border-bottom: 2px solid var(--secondColor);
 }
 .input__container label {
+  display: block;
+  height: 100%;
   background-color: var(--secondColor);
   border-radius: 5px 0 0 5px;
   color: var(--lightColor);
   font-size: 0.8rem;
+  font-weight: bold;
   text-align: center;
-  padding: 0.4rem 0.4rem;
-}
-.input__container label span {
-  font-size: 0.5rem;
+  padding: 0.5rem;
+  border-bottom: 4px solid var(--secondColor);
 }
 
 /* Add media-queries*/

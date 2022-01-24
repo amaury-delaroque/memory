@@ -12,31 +12,7 @@ const game = {
     });
   },
   themes: [],
-  cardsGame: [
-    { name: "red apple", id: 1 },
-    { name: "banana", id: 2 },
-    { name: "orange", id: 3 },
-    { name: "lime", id: 4 },
-    { name: "pomegranate", id: 5 },
-    { name: "apricot", id: 6 },
-    { name: "lemon", id: 7 },
-    { name: "strawberry", id: 8 },
-    { name: "green apple", id: 9 },
-    { name: "peach", id: 10 },
-    { name: "grape", id: 11 },
-    { name: "watermelon", id: 12 },
-    { name: "plum", id: 13 },
-    { name: "pear", id: 14 },
-    { name: "red cherry", id: 15 },
-    { name: "raspberry", id: 16 },
-    { name: "mango", id: 17 },
-    { name: "yellow cherry", id: 18 },
-  ],
-  theme: {
-    name: "fruit",
-    id: 1,
-    sprite: "dragonball.png",
-  },
+  theme: {},
   isInit: false,
   pair: [],
   checkingCardPair: false,
@@ -47,7 +23,7 @@ const game = {
   score: 0,
   isGameWon: false,
   initCards: () => {
-    const cards = [...game.cardsGame];
+    const cards = [...game.theme.cards];
     const randomizedAndSliceCards = cards
       .sort(() => Math.random() - 0.5)
       .slice(0, 7);
@@ -80,10 +56,10 @@ const game = {
       img.onload = () => {
         game.trimImage(
           img,
-          id * (img.height / game.cardsGame.length) -
-            img.height / game.cardsGame.length,
+          id * (img.height / game.theme.cards.length) -
+            img.height / game.theme.cards.length,
           img.width,
-          img.height / game.cardsGame.length
+          img.height / game.theme.cards.length
         );
       };
       cardElem.addEventListener("click", game.onClickCard);
@@ -223,6 +199,7 @@ const game = {
   createThemesList: async () => {
     const themes = await api.getAllThemes();
     game.themes = themes;
+    game.theme = game.themes[0];
     const themeButton = document.querySelector(".header__themes__button");
     const themeContainer = document.querySelector(".header__themes__container");
     themeButton.addEventListener("click", () =>
@@ -231,8 +208,6 @@ const game = {
     themes?.map((theme) => {
       const themeElem = document.createElement("li");
       const title = document.createElement("h3");
-      const img = document.createElement("img");
-
       title.textContent = theme.name;
       themeElem.appendChild(title);
       themeElem.dataset.id = theme.id;
@@ -244,26 +219,25 @@ const game = {
         if (foundTheme) {
           game.theme = foundTheme;
           console.log(foundTheme);
-          game.cardsGame = foundTheme.cards;
           game.isGameWon = true;
           game.timer = 0;
           themeContainer.classList.toggle("header__themes__container--open");
           setTimeout(() => {
             document.documentElement.style.setProperty(
               "--primaryColor",
-              game.theme.primary - color
+              game.theme.primary_color
             );
             document.documentElement.style.setProperty(
               "--secondColor",
-              game.theme.second - color
+              game.theme.second_color
             );
             document.documentElement.style.setProperty(
               "--lightColor",
-              game.theme.light - color
+              game.theme.light_color
             );
             document.documentElement.style.setProperty(
               "--darkColor",
-              game.theme.darkColor
+              game.theme.dark_color
             );
             game.replayGame();
           }, 500);

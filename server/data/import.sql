@@ -22,7 +22,7 @@ CREATE TABLE "theme" (
 CREATE TABLE "card" (
 	"serial-id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	"name" text NOT NULL,
-	"id" INT NOT NULL UNIQUE,
+	"id" INT NOT NULL,
     "theme_id" serial references "theme"("id") ON DELETE CASCADE
 );
 

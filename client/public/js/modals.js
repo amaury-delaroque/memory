@@ -1,8 +1,10 @@
 const modals = {
   close: (modal) => {
+    document.querySelector(".header__themes__button").disabled = false;
     modal.classList.add("modal__close");
   },
   open: (modal) => {
+    document.querySelector(".header__themes__button").disabled = true;
     modal.classList.remove("modal__close");
   },
   modalReplay: document.querySelector("#modal__replay"),
