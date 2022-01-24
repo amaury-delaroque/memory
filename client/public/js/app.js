@@ -69,7 +69,7 @@ const game = {
       frontCard.classList.add("board__cards--front");
       const backCard = document.createElement("div");
       backCard.classList.add("board__cards--back");
-      img.src = `./public/images/${game.theme.sprite}`;
+      img.src = `./public/images/${theme.sprite}`;
       img.alt = name;
       frontCard.appendChild(img);
       cardElem.appendChild(backCard);
@@ -181,10 +181,6 @@ const game = {
     modalForm.addEventListener("submit", game.handleCreateScore);
   },
   endGame: (message) => {
-    document.documentElement.style.setProperty(
-      "--primaryColor",
-      `#${Math.floor(Math.random() * 16777215).toString(16)}`
-    );
     const modalBtn = modals.modalReplay.querySelector("#modal__replay__btn");
     const modalText = modals.modalReplay.querySelector("#modal__replay__text");
     const modalTitle = modals.modalReplay.querySelector(
@@ -204,9 +200,9 @@ const game = {
   replayGame: () => {
     modals.close(modals.modalReplay);
     game.score = 0;
+    game.isGameWon = false;
     game.pair = [];
     game.checkingCardPair = false;
-    game.isGameWon = false;
     game.pairFind = [];
     game.initCards();
     game.setTimer();
@@ -232,25 +228,47 @@ const game = {
     themeButton.addEventListener("click", () =>
       themeContainer.classList.toggle("header__themes__container--open")
     );
-    game.themes?.map((theme) => {
+    themes?.map((theme) => {
       const themeElem = document.createElement("li");
-      const img = document.createElement("img");
       const title = document.createElement("h3");
-      img.src = `./public/images/${game.theme.sprite}`;
-      img.alt = theme.name;
+      const img = document.createElement("img");
+
       title.textContent = theme.name;
-      themeElem.appendChild(img);
       themeElem.appendChild(title);
       themeElem.dataset.id = theme.id;
-      img.onload = () => {
-        game.trimImage(
-          img,
-          1 * (img.height / game.cardsGame.length) -
-            img.height / game.cardsGame.length,
-          img.width,
-          img.height / game.cardsGame.length
-        );
-      };
+      themeElem.classList.add("header__themes__container__li");
+      themeElem.addEventListener("click", () => {
+        const foundTheme = game.themes.find((gameTheme) => {
+          return gameTheme.id === +themeElem.dataset.id;
+        });
+        if (foundTheme) {
+          game.theme = foundTheme;
+          console.log(foundTheme);
+          game.cardsGame = foundTheme.cards;
+          game.isGameWon = true;
+          game.timer = 0;
+          themeContainer.classList.toggle("header__themes__container--open");
+          setTimeout(() => {
+            document.documentElement.style.setProperty(
+              "--primaryColor",
+              game.theme.primary - color
+            );
+            document.documentElement.style.setProperty(
+              "--secondColor",
+              game.theme.second - color
+            );
+            document.documentElement.style.setProperty(
+              "--lightColor",
+              game.theme.light - color
+            );
+            document.documentElement.style.setProperty(
+              "--darkColor",
+              game.theme.darkColor
+            );
+            game.replayGame();
+          }, 500);
+        }
+      });
       themeContainer.appendChild(themeElem);
     });
   },

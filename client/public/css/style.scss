@@ -42,7 +42,6 @@ body {
   &__themes {
     &__container {
       background-color: var(--lightColor);
-
       border-radius: 0 0 vars.$borderRadius vars.$borderRadius;
       width: 0;
       max-height: 300px;
@@ -60,6 +59,25 @@ body {
         border: 1px solid var(--primaryColor);
         border-top: none;
         width: 100%;
+      }
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        background-color: var(--lightColor);
+        color: var(--primaryColor);
+        border-bottom: 1px solid var(--primaryColor);
+        transition: 0.3s;
+        cursor: pointer;
+        &:hover {
+          background-color: var(--primaryColor);
+          color: var(--lightColor);
+        }
+        img {
+          width: 15%;
+          border-radius: 50%;
+        }
       }
     }
     &__button {

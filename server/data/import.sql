@@ -13,10 +13,10 @@ CREATE TABLE "theme" (
 	"id" int GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 	"name" text NOT NULL UNIQUE,
     "sprite"text NOT NULL UNIQUE,
-    "primary-color"text,
-    "second-color"text,
-    "light-color"text,
-    "dark-color"text
+    "primary_color"text,
+    "second_color"text,
+    "light_color"text,
+    "dark_color"text
 );
 
 CREATE TABLE "card" (
