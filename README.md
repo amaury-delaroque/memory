@@ -40,7 +40,11 @@ Si vous perdez, retentez votre chance :smiling_imp: :smiling_imp:
 
 ## Installation
  ### Création de la base de donnée PostgreSQL via le terminal de commande. 
+ Se connecter à psql en SuperUser puis créer un rôle avec login et mot de passe. Créer ensuite la base de donnée lié au rôle propriétaire.
+
 ```bash
+/*  Remplacer <role> <password> <database> */
+
 $ psql postgres
 postgres=> CREATE ROLE <role> WITH LOGIN PASSWORD '<password>';
 postgres=> CREATE DATABASE <database> OWNER <role>;
@@ -57,7 +61,7 @@ $ nano .env
 ```
 ### Lancer le serveur
 ```bash
-$ npm i -y
+$ npm i
 $ npm start
 ```
 ### Lancer le client
@@ -65,7 +69,7 @@ $ npm start
 $ cd client
 $ open index.html
 ```
-### Editer le style depuis le préprocesseur SASS
+### Editer le fichier style depuis le préprocesseur SASS et le compiler en CSS
 ```bash
 $ sass --watch ./client/public/css/style.scss ./client/public/css/index.css
 ```
